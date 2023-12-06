@@ -1,4 +1,6 @@
 body {
+    margin: 0;
+    padding: 0;
     background-color: #F5F5F5;
     font-family: 'system-ui';
 }
@@ -10,7 +12,10 @@ body {
 }
 
 
-a:link, a:visited, a:hover, a:active {
+a:link,
+a:visited,
+a:hover,
+a:active {
     color: black;
     text-decoration: none;
 }
@@ -104,6 +109,7 @@ textarea {
 
 .tag-select {
     width: inherit;
+    position: relative;
 }
 
 .tag-select__header {
@@ -111,24 +117,30 @@ textarea {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
-    width: 160px;
+    width: 100%;
+    height: 48px;
     border-radius: 3px 3px 0px 0px;
+    cursor: pointer;
 }
 
 .tag-select__options {
     border-radius: 0px 0px 3px 3px;
     background-color: #D8D7D7;
-    height: 90px;
-    width: 180px;
+    width: 100%;
     overflow: auto;
     position: absolute;
+    top: 68px;
+    overflow-x: hidden;
 }
 
 .tag-select__option {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px;
+    width: 100%;
 }
 
 ul::-webkit-scrollbar {
@@ -161,11 +173,11 @@ input:checked {
     margin: 0px 5px;
 }
 
-ul {  
-    list-style-type: none; 
-    padding: 0; 
+ul {
+    list-style-type: none;
+    padding: 0;
     margin: 0;
-}  
+}
 
 .right {
     float: right;
@@ -233,18 +245,12 @@ ul {
 }
 
 .modal {
-    width: fit-content;
-    height: min-content;
-    position: absolute;
-    z-index: 500;
-    left: 0; 
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin: auto;
-    overflow: auto;
-    padding: 3% 6%;
-    border-radius: 11px;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.25);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .height-100 {
@@ -257,7 +263,37 @@ ul {
 }
 
 .tag {
-    width: 40; 
-    height: 18; 
+    width: 40;
+    height: 18;
     border-radius: 2;
+}
+
+#modal {
+    position: fixed;
+    z-index: 100;
+    top: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+select {
+    appearance: none;
+    background-color: transparent;
+    border: none;
+    padding: 0 1em 0 0;
+    margin: 0;
+    width: 100%;
+    font-family: inherit;
+    font-size: inherit;
+    cursor: inherit;
+    line-height: inherit;
+    outline: none;
+}
+
+option {
+    all: unset;
 }

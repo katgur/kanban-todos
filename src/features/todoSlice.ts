@@ -1,31 +1,47 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { Status, Todo } from '../types';
+import { RootState } from '../app/store';
+
+interface TodoState {
+  items: Todo[],
+}
+
+const initialState: TodoState = {
+  items: []
+}
 
 export const todoSlice = createSlice({
   name: 'todo',
-  initialState: {
-    data: []
-  },
+  initialState,
   reducers: {
-    set: (state, payload) => {
-      state.data = payload.payload;
+    set: (state, action: PayloadAction<Todo[]>) => {
+      state.items = action.payload;
     },
-    add: (state, payload) => {
-      state.data = [...state.data, payload.payload];
+    add: (state, action: PayloadAction<Todo>) => {
+      state.items = [...state.items, action.payload];
     },
-    update: (state, payload) => {
-      const data = [...state.data];
-      const index = data.findIndex(item => item.id === payload.payload.id);
-      data[index] = payload.payload;
-      state.data = data;
+    update: (state, action: PayloadAction<Todo>) => {
+      const data = [...state.items];
+      const index = data.findIndex(item => item.id === action.payload.id);
+      data[index] = action.payload;
+      state.items = data;
     },
-    remove: (state, payload) => {
-      state.data = state.data.filter((value, index, array) => {
-          return value.id !== payload.payload.id;
+    remove: (state, action: PayloadAction<Todo>) => {
+      state.items = state.items.filter(item => {
+        return item.id !== action.payload.id;
       })
     }
   },
 })
 
 export const { add, update, remove, set } = todoSlice.actions
+
+export const getByStatus = (status: Status) => {
+  return (state: RootState) => state.todo.items.filter(item => item.status === status);
+}
+
+export const getTodoById = (id: string) => {
+  return (state: RootState) => state.todo.items.find(item => item.id === id);
+}
 
 export default todoSlice.reducer

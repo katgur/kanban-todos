@@ -1,3 +1,4 @@
+import { Todo } from '../types';
 import { getItem, setItem } from './LSRequest';
 
 const TODOS = 'todos';
@@ -18,16 +19,18 @@ export async function setTodos(todos) {
     return JSON.parse(todos);
 }
 
-export async function addTodo({ id, name, text, tags, status }) {
+export async function addTodo(todo: Todo) {
     const todos = await getTodos();
-    setItem(TODOS, JSON.stringify([...todos, { id: id, name, text, tags, status}]));
+    await setItem(TODOS, JSON.stringify([...todos, todo]));
+    return todo;
 }
 
-export async function updateTodo(todo) {
+export async function updateTodo(todo: Todo) {
     const todos = await getTodos();
     const index = todos.findIndex(item => item.id === todo.id);
     todos[index] = todo;
-    return setItem(TODOS, JSON.stringify(todos));
+    await setItem(TODOS, JSON.stringify(todos));
+    return todo;
 }
 
 export async function deleteTodo(todo) {
