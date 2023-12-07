@@ -9,10 +9,11 @@ import { getTodoById, remove, set } from "../features/todoSlice"
 import { deleteTodo, getTodos } from "../data/todoApi"
 import FullHeader from "../components/FullHeader"
 import Modal from "../components/Modal"
-import { Todo } from "../types"
+import { Point, Todo } from "../types"
+import Popup from "../components/Popup"
 
 function FullPage() {
-    const [isMoreOpened, setIsMoreOpen] = useState(false);
+    const [morePoint, setMorePoint] = useState<Point | null>(null);
     const [isDeleteOpened, setIsDeleteOpen] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -56,17 +57,17 @@ function FullPage() {
             <div className="layout full-page">
                 <div className="space-between">
                     {statusMap[todo.status]}
-                    <span onClick={() => setIsMoreOpen(true)}>{moreIcon}</span>
+                    <span onClick={(e) => setMorePoint({ x: e.clientX, y: e.clientY })}>{moreIcon}</span>
                 </div>
-                <Modal isVisible={isMoreOpened}>
+                <Popup point={morePoint}>
                     <div className="card clearfix">
                         <ul className="left">
-                            <li className="text-button" onClick={() => { setIsDeleteOpen(true); setIsMoreOpen(false); }}>Удалить</li>
+                            <li className="text-button" onClick={() => { setIsDeleteOpen(true); setMorePoint(null); }}>Удалить</li>
                             <li className="text-button"><Link to={`/edit/${todo.id}`}>Редактировать</Link></li>
                         </ul>
-                        <span className="right" onClick={() => setIsMoreOpen(false)}>{closeIcon}</span>
+                        <span className="right" onClick={() => setMorePoint(null)}>{closeIcon}</span>
                     </div>
-                </Modal>
+                </Popup>
                 <div className="task-list">
                     <div className="card">{todo.name}</div>
                     <div className={todo?.description ? "card" : "card disabled"}>{todo.description ? todo?.description : "Описание"}</div>

@@ -22,3 +22,8 @@ export interface Todo {
     status: Status,
     comments: Comment[],
 }
+
+export interface Point {
+    x: number,
+    y: number,
+}
