@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Filter } from "../types";
+import headerStyle from "../style/header.module.css";
 
 interface MainHeaderProps {
     addFilter: (filter: Filter) => void,
@@ -19,16 +20,18 @@ function MainHeader({ addFilter, removeFilter }: MainHeaderProps) {
     }
 
     return (
-        <div className="header gap-20">
-            {filters.current.map((filter) => {
-                return (
-                    <span key={filter}>
-                        <input type="checkbox" className="checkbox" onChange={(e) => onInputChange(e, filter)} />
-                        {options.current[filter]}
-                    </span>
-                )
-            })}
-        </div>
+        <header>
+            <ul className={headerStyle.mainHeader}>
+                {filters.current.map((filter) => {
+                    return (
+                        <li key={filter}>
+                            <input type="checkbox" className="checkbox" onChange={(e) => onInputChange(e, filter)} />
+                            {options.current[filter]}
+                        </li>
+                    )
+                })}
+            </ul>
+        </header>
     );
 }
 

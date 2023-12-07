@@ -1,16 +1,17 @@
 import { useNavigate } from "react-router-dom"
 import { backIcon } from "../utils/icons"
+import headerStyle from "../style/header.module.css"
 
 function FullHeader() {
     const navigate = useNavigate();
 
     return (
-        <span className="header text-button" onClick={() => { navigate('/') }}>
+        <header className={headerStyle.fullHeader} onClick={() => { navigate('/') }}>
+            {backIcon}
             <span>
-                {backIcon}
                 Вернуться к задачам
             </span>
-        </span>
+        </header>
     )
 }
 
