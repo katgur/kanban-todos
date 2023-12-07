@@ -17,9 +17,8 @@ function TodoForm({ todo }: TodoFormProps) {
     const dispatch = useDispatch();
 
     const onSubmit = (newTodo: Todo) => {
-        console.log(newTodo)
         if (todo) {
-            updateTodo(newTodo)
+            updateTodo({ ...todo, ...newTodo })
                 .then((data: Todo) => {
                     dispatch(update(data));
                 })

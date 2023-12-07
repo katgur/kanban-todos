@@ -3,7 +3,7 @@ export const getItem = function(key) {
         setTimeout(() => {
             const response = localStorage.getItem(key);
             resolve(response);
-        }, 500);
+        }, 100);
     });
 }
 
@@ -12,7 +12,7 @@ export const setItem = function(key, value) {
         setTimeout(() => {
             const response = localStorage.setItem(key, value);
             resolve(response);
-        }, 500);
+        }, 100);
     });
 }
 
