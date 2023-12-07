@@ -27,7 +27,7 @@ function TodoForm({ todo }: TodoFormProps) {
                     console.error(err);
                 })
         } else {
-            addTodo({ ...newTodo, id: uuid(), status: Status.Created, comments: [] })
+            addTodo({ ...newTodo, id: uuid(), status: Status.Created, comments: [], tags: newTodo.tags ? newTodo.tags : [] })
                 .then((data: Todo) => {
                     dispatch(add(data));
                 })

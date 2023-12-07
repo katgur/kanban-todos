@@ -12,6 +12,8 @@ export enum Status {
 
 export type Tag = 'violet' | 'green' | 'red' | 'orange' | 'light-blue' | 'lime' | 'blue' | 'yellow';
 
+export type Filter = 'tags' | 'description' | 'comments';
+
 export interface Todo {
     id: string,
     name: string,

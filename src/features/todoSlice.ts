@@ -36,7 +36,7 @@ export const todoSlice = createSlice({
 
 export const { add, update, remove, set } = todoSlice.actions
 
-export const getByStatus = (status: Status) => {
+export const getTodosByStatus = (status: Status) => {
   return (state: RootState) => state.todo.items.filter(item => item.status === status);
 }
 

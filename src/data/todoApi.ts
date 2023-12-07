@@ -1,32 +1,37 @@
-import { Todo } from '../types';
+import { Filter, Todo } from '../types';
 import { getItem, setItem } from './LSRequest';
 
 const TODOS = 'todos';
 
-export async function getTodos() {
+export async function getTodos(filters: []) {
     const todos = await getItem(TODOS);
     if (!todos) {
         setItem(TODOS, JSON.stringify([]));
         return [];
     }
-    return JSON.parse(todos);
-}
-
-export async function setTodos(todos) {
-    if (!todos) {
-        setItem(TODOS, JSON.stringify([]));
+    if (filters.length === 0) {
+        return JSON.parse(todos);
     }
-    return JSON.parse(todos);
+    const applyFilters = (todo: Todo) => {
+        for (const filter of filters) {
+            if (todo[filter].length === 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return JSON.parse(todos).filter(todo => applyFilters(todo));
 }
 
 export async function addTodo(todo: Todo) {
-    const todos = await getTodos();
+    console.log(todo);
+    const todos = await getTodos([]);
     await setItem(TODOS, JSON.stringify([...todos, todo]));
     return todo;
 }
 
 export async function updateTodo(todo: Todo) {
-    const todos = await getTodos();
+    const todos = await getTodos([]);
     const index = todos.findIndex(item => item.id === todo.id);
     todos[index] = todo;
     await setItem(TODOS, JSON.stringify(todos));
@@ -34,7 +39,7 @@ export async function updateTodo(todo: Todo) {
 }
 
 export async function deleteTodo(todo) {
-    const todos = await getTodos();
+    const todos = await getTodos([]);
     return setItem(TODOS, JSON.stringify(
         todos.filter((value, index, array) => {
             return value.id !== todo.id;

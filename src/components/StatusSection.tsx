@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { Status } from "../types";
-import { getByStatus } from "../features/todoSlice";
+import { getTodosByStatus } from "../features/todoSlice";
 import DropArea from "./DropArea";
 import TodoCard from "./TodoCard";
 import { Link } from "react-router-dom";
@@ -13,7 +13,7 @@ interface StatusSectionProps {
 const names = ['Todo', 'In Progress', 'Done'];
 
 function StatusSection({ status }: StatusSectionProps) {
-    const todos = useSelector(getByStatus(status));
+    const todos = useSelector(getTodosByStatus(status));
 
     return (
         <section>
