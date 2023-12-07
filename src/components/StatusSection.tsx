@@ -22,13 +22,17 @@ function StatusSection({ status }: StatusSectionProps) {
             </h2>
             <DropArea status={status}>
                 {
+                    (!todos || todos.length === 0) &&
+                    <div className="empty">No todos yet</div>
+                }
+                {
                     todos.map(todo =>
                         <TodoCard key={todo.id} todo={todo} />
                     )
                 }
             </DropArea>
             {
-                status === Status.Created && <Link className="button" to='/create'>{iconPlus}Добавить тикет</Link>
+                status === Status.Created && <Link className="button clearfix" to='/create'>{iconPlus}Добавить тикет</Link>
             }
         </section>
     );

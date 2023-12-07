@@ -19,16 +19,18 @@ function TodoCard({ todo }: TodoCardProps) {
 	}))
 
 	return (
-		<div className="card" ref={drag}>
-			<Link to={`edit/${todo.id}`}>
-				<span className="left width-200">
-					<span className="left wrap">{todo.name}</span>
-					<TagList className="left clear-left" tags={todo.tags} />
+		<div className="card clearfix" ref={drag}>
+			<span className="left width-200">
+				<span className="left wrap">
+					<Link to={`edit/${todo.id}`}>
+						{todo.name}
+					</Link>
 				</span>
-				<span className="right"><Link to={`full/${todo.id}`}>{moreIcon}</Link></span>
-				{todo.description && <span className="right clear-right">{alertIcon}</span>}
-				{todo.comments && Boolean(todo.comments.length) && <span className="right">{commentIcon}</span>}
-			</Link>
+				<TagList className="left clear-left" tags={todo.tags} />
+			</span>
+			<span className="right"><Link to={`full/${todo.id}`}>{moreIcon}</Link></span>
+			{todo.description && <span className="right clear-right">{alertIcon}</span>}
+			{todo.comments && Boolean(todo.comments.length) && <span className="right">{commentIcon}</span>}
 		</div>
 	)
 }

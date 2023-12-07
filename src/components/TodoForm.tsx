@@ -41,7 +41,7 @@ function TodoForm({ todo }: TodoFormProps) {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="input-container">
-            <textarea className="card height-22" defaultValue={todo?.name} {...register("name", { required: true })} />
+            <input className="card" defaultValue={todo?.name} {...register("name", { required: true })} />
             {errors.name && <span>Name is required</span>}
             <textarea className="card height-100" defaultValue={todo?.description} {...register("description")} />
             <TagSelect defaultValue={todo?.tags} register={register} />

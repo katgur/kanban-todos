@@ -30,7 +30,7 @@ function DropArea({ children, status }: DropAreaProps) {
     }, []);
 
     return (
-        <div ref={drop}>
+        <div ref={drop} className="task-list">
             {children}
         </div>
     )

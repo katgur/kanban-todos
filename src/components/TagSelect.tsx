@@ -26,22 +26,24 @@ function TagSelect({ defaultValue, register }) {
     return (
         <div className="tag-select">
             {selected && <TagList tags={selected} />}
-            <div className="tag-select__header" onClick={() => setExpanded(!expanded)}>
-                <div>Выбрать тег</div>
-                {arrowDown}
+            <div className="tag-select__content" onClick={() => setExpanded(!expanded)}>
+                <div className="tag-select__header">
+                    <div>Выбрать тег</div>
+                    {arrowDown}
+                </div>
+                {
+                    expanded &&
+                    <select className="tag-select__options" {...register("tags")} onChange={onClick} multiple>
+                        {names.map(name => {
+                            return (
+                                <option className="tag-select__option" key={name} value={name}>
+                                    {name}
+                                </option>
+                            )
+                        })}
+                    </select>
+                }
             </div>
-            {
-                expanded &&
-                <select className="tag-select__options" {...register("tags")} onChange={onClick} multiple>
-                    {names.map(name => {
-                        return (
-                            <option className="tag-select__option" key={name} value={name}>
-                                {name}
-                            </option>
-                        )
-                    })}
-                </select>
-            }
         </div>
     )
 }
