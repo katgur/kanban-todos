@@ -1,6 +1,6 @@
 export interface Comment {
     id: string,
-    name: string,
+    date: string,
     content: string,
 }
 
@@ -20,5 +20,10 @@ export interface Todo {
     description: string,
     tags: Tag[],
     status: Status,
-    comments: string[],
+    comments: Comment[],
+}
+
+export interface Point {
+    x: number,
+    y: number,
 }

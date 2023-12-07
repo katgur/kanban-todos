@@ -12,7 +12,6 @@ function MainPage() {
     const [filters, setFilters] = useState<Filter[]>([]);
 
     useEffect(() => {
-        console.log(filters);
         getTodos(filters)
             .then((data: Todo[]) => {
                 dispatch(set(data));

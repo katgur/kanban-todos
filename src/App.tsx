@@ -11,9 +11,9 @@ const App = () => {
       <Routes>
         <Route path='/' element={<MainPage />}>
           <Route path='create' element={<TaskPage />} />
-          <Route path='edit/:id' element={<TaskPage />} />
         </Route>
-        <Route path='full/:id' element={<FullPage />} />
+        <Route path='/edit/:id' element={<TaskPage />} />
+        <Route path='/full/:id' element={<FullPage />} />
       </Routes>
     </DndProvider>
   )
