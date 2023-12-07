@@ -38,13 +38,14 @@ export async function updateTodo(todo: Todo) {
     return todo;
 }
 
-export async function deleteTodo(todo) {
+export async function deleteTodo(todo: Todo) {
     const todos = await getTodos([]);
-    return setItem(TODOS, JSON.stringify(
+    await setItem(TODOS, JSON.stringify(
         todos.filter((value, index, array) => {
             return value.id !== todo.id;
         }))
     );
+    return todo;
 }
 
 export default { getTodos, addTodo, updateTodo, deleteTodo };
