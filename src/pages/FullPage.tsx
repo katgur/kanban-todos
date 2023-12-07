@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 import { useState } from "react"
 import { remove } from "../features/todoSlice"
 import { deleteTodo } from "../data/todoApi"
-import { Header } from "../components/Header"
+import FullHeader from "../components/FullHeader"
 
 function FullPage() {
 
@@ -70,7 +70,7 @@ function FullPage() {
                     </div>
                 </div>
             )}
-            <Header />
+            <FullHeader />
             <div className="layout full-page">
                 {header}
                 <div className="task-list">

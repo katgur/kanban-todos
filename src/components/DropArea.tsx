@@ -1,36 +1,43 @@
 import { useDrop } from 'react-dnd'
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
-import { update } from '../features/todoSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { getTodoById, update } from '../features/todoSlice'
 import { updateTodo } from '../data/todoApi'
+import React from 'react'
+import { Status, Todo } from '../types'
 
- function DropArea({ children, destination }) {
+interface DropAreaProps {
+    children: React.ReactNode,
+    status: Status,
+}
 
-    const tasks = useSelector(state => state.todo.data);
+interface DropAreaItem {
+    todo: Todo,
+}
+
+function DropArea({ children, status }: DropAreaProps) {
     const dispatch = useDispatch();
 
-    const updateTask = (id) => {
-        const task = tasks.filter((value, index, array) => {
-            return value.id === id
-        })[0];
-        const newTask = {id: task.id, name: task.name, text: task.text, tags: task.tags, status: destination};
-        dispatch(update(newTask));
-        updateTodo(newTask);
-    };
-
-    const [{ isOver }, drop] = useDrop(() => {
+    const [_, drop] = useDrop(() => {
         return {
             accept: 'task',
-            drop: (item, monitor) => {
-                updateTask(item.id);
+            drop: (item: DropAreaItem) => {
+                const newTask = { ...item.todo, status };
+                updateTodo(newTask)
+                    .then((data: Todo) => {
+                        dispatch(update(data));
+                    })
+                    .catch(err => {
+                        console.error(err);
+                    })
             }
-      }}, [tasks]);
+        }
+    }, []);
 
     return (
-        <div ref={drop}>
+        <div ref={drop} className="task-list">
             {children}
         </div>
     )
- }
+}
 
- export default DropArea;
+export default DropArea;

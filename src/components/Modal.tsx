@@ -1,16 +1,17 @@
-import { useNavigate } from "react-router-dom"
-import { closeIcon } from "../utils/icons"
+import { useMemo, ReactNode } from 'react'
+import { createPortal } from 'react-dom'
 
-function Modal({ children }) {
-    const navigate = useNavigate();
-    const onClose = () => { navigate(-1) };
-    
-     return <div className="modal card">
-                    <div className="right" onClick={onClose}>
-                        {closeIcon}
-                    </div>
-                    {children}
-                </div>
+interface ModalProps {
+    isVisible: boolean,
+    children: ReactNode
 }
 
-export default Modal;
+function Modal({ isVisible, children }: ModalProps) {
+    const container = useMemo(
+        () => document.getElementById('modal'),
+        []
+    )
+    return container && isVisible && createPortal(children, container)
+}
+
+export default Modal

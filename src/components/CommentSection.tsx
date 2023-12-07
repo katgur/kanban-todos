@@ -1,17 +1,22 @@
 import { closeIcon, iconPlusGray } from "../utils/icons";
 import { useState } from "react"
 import { v4 as uuidv4 } from "uuid"
+import { Comment } from "../types";
 
-function CommentSection({ comments }) {
-    const [_comments, _setComments] = useState(comments);
+interface CommentSectionProps {
+    initialComments: Comment[]
+}
+
+function CommentSection({ initialComments }: CommentSectionProps) {
+    const [comments, setComments] = useState<Comment[]>([...initialComments]);
 
     const onAddClick = () => {
-        _setComments([..._comments, {id: uuidv4(), name: "Имя", content: "Описание"}]);
+        setComments([...comments, { id: uuidv4(), name: "Имя", content: "Описание" }]);
     };
 
     return (
         <>
-            {_comments && _comments.map(comment => {
+            {comments && comments.map(comment => {
                 return <div key={comment.id}>
                     <span className="left">{comment.name}</span>
                     <span className="right">{closeIcon}</span>
