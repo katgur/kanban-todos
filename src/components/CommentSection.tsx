@@ -1,32 +1,49 @@
 import { closeIcon, iconPlusGray } from "../utils/icons";
 import { useState } from "react"
-import { v4 as uuidv4 } from "uuid"
-import { Comment } from "../types";
+import { Comment, Todo } from "../types";
+import CommentForm from "./CommentForm";
+import { updateTodo } from "../data/todoApi";
+import { update } from "../features/todoSlice";
+import { useDispatch } from "react-redux";
 
 interface CommentSectionProps {
-    initialComments: Comment[]
+    todo: Todo,
 }
 
-function CommentSection({ initialComments }: CommentSectionProps) {
-    const [comments, setComments] = useState<Comment[]>([...initialComments]);
-
-    const onAddClick = () => {
-        setComments([...comments, { id: uuidv4(), name: "Имя", content: "Описание" }]);
-    };
+function CommentSection({ todo }: CommentSectionProps) {
+    const [expanded, setExpanded] = useState<boolean>(false);
+    const dispatch = useDispatch();
+    
+    const onSubmit = (comment: Comment) => {
+        updateTodo({ ...todo, comments: [...todo.comments, comment] })
+            .then((data: Todo) => {
+                dispatch(update(data));
+                setExpanded(false);
+            })
+            .catch(console.error)
+    }
 
     return (
         <>
-            {comments && comments.map(comment => {
-                return <div key={comment.id}>
-                    <span className="left">{comment.name}</span>
-                    <span className="right">{closeIcon}</span>
-                    <span className="left clear-left subtext">{comment.content}</span>
-                </div>
-            })}
-            <div className="subbutton" onClick={onAddClick}>
+            <div className="subbutton" onClick={() => setExpanded(true)}>
                 {iconPlusGray}
                 Добавить комментарий
             </div>
+            {todo.comments.map(comment => {
+                return <div key={comment.id}>
+                    <span className="left subtext">{comment.date}</span>
+                    <span className="left clear-left">{comment.content}</span>
+                </div>
+            })}
+            {
+                expanded &&
+                <div>
+                    <span className="right" onClick={() => setExpanded(false)}>
+                        {closeIcon}
+                    </span>
+                    <CommentForm onSubmit={onSubmit} />
+                </div>
+            }
         </>
     );
 }
