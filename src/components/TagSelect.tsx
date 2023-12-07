@@ -18,32 +18,34 @@ function TagSelect({ defaultValue, register }) {
     const [selected, setSelected] = useState(defaultValue ? [...defaultValue] : []);
     const [expanded, setExpanded] = useState<boolean>(false);
 
-    const onClick = (event) => {
-        console.log(event, event.target.options[0].selected)
-        setSelected(names.filter((_, index) => event.target.options[index].selected === true))
+    const onSelectChange = (e, tag) => {
+        if (e.target.checked) {
+            setSelected([...selected, tag]);
+        } else {
+            setSelected(selected.filter(s => s !== tag));
+        }
     }
 
     return (
         <div className="tag-select">
-            {selected && <TagList tags={selected} />}
+            <TagList tags={selected} />
             <div className="tag-select__content" onClick={() => setExpanded(!expanded)}>
                 <div className="tag-select__header">
                     <div>Выбрать тег</div>
                     {arrowDown}
                 </div>
-                {
-                    expanded &&
-                    <select className="tag-select__options" {...register("tags")} onChange={onClick} multiple>
-                        {names.map(name => {
-                            return (
-                                <option className="tag-select__option" key={name} value={name}>
-                                    {name}
-                                </option>
-                            )
-                        })}
-                    </select>
-                }
+                <ul style={{ display: expanded ? "block" : "none" }} className="tag-select__options">
+                    {names.map(name => {
+                        return (
+                            <li className="tag-select__option" key={name}>
+                                <span style={{ display: "inline-block", backgroundColor: colors[name], width: 40, height: 18, borderRadius: 2 }}></span>
+                                <input {...register("tags")} type="checkbox" className="checkbox" onChange={(e) => onSelectChange(e, name)} value={name} checked={selected.includes(name)} />
+                            </li>
+                        )
+                    })}
+                </ul>
             </div>
+
         </div>
     )
 }
