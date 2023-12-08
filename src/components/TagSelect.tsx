@@ -1,21 +1,13 @@
 import { useState } from "react"
 import TagList from "./TagList"
 import { arrowDown } from "../utils/icons"
+import todoStyle from "../style/todo.module.css"
+import mainStyle from "../style/main.module.css"
 
-const names = ['violet', 'green', 'red', 'orange', 'light-blue', 'lime', 'blue', 'yellow']
-const colors = {
-    'violet': '#EEE1FD',
-    'green': '#BAF8CF',
-    'red': '#FED6CC',
-    'orange': '#FFDCB6',
-    'light-blue': '#B8E6FF',
-    'lime': '#D8FCB0',
-    'blue': '#C6D9FF',
-    'yellow': '#FFF4C7'
-}
+const names = ['violet', 'green', 'red', 'orange', 'cyan', 'lime', 'blue', 'yellow']
 
 function TagSelect({ defaultValue, register }) {
-    const [selected, setSelected] = useState(defaultValue ? [...defaultValue] : []);
+    const [selected, setSelected] = useState([...defaultValue]);
     const [expanded, setExpanded] = useState<boolean>(false);
 
     const onSelectChange = (e, tag) => {
@@ -27,23 +19,26 @@ function TagSelect({ defaultValue, register }) {
     }
 
     return (
-        <div className="tag-select">
+        <div>
             <TagList tags={selected} />
-            <div className="tag-select__content" onClick={() => setExpanded(!expanded)}>
-                <div className="tag-select__header">
+            <div className={todoStyle.tagSelectContent} onClick={() => setExpanded(!expanded)}>
+                <div className={todoStyle.tagSelectHeader}>
                     <div>Выбрать тег</div>
                     {arrowDown}
                 </div>
-                <ul style={{ display: expanded ? "block" : "none" }} className="tag-select__options">
-                    {names.map(name => {
-                        return (
-                            <li className="tag-select__option" key={name}>
-                                <span style={{ display: "inline-block", backgroundColor: colors[name], width: 40, height: 18, borderRadius: 2 }}></span>
-                                <input {...register("tags")} type="checkbox" className="checkbox" onChange={(e) => onSelectChange(e, name)} value={name} checked={selected.includes(name)} />
-                            </li>
-                        )
-                    })}
-                </ul>
+                {
+                    expanded &&
+                    <ul className={todoStyle.tagSelectOptions}>
+                        {names.map(name => {
+                            return (
+                                <li className={todoStyle.tagSelectOption} key={name}>
+                                    <div className={`${todoStyle.tag} ${todoStyle[name]}`}></div>
+                                    <input {...register("tags")} type="checkbox" className={mainStyle.checkbox} onChange={(e) => onSelectChange(e, name)} value={name} checked={selected.includes(name)} />
+                                </li>
+                            )
+                        })}
+                    </ul>
+                }
             </div>
 
         </div>

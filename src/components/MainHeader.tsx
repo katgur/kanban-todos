@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Filter } from "../types";
 import headerStyle from "../style/header.module.css";
+import mainStyle from "../style/main.module.css";
 
 interface MainHeaderProps {
     addFilter: (filter: Filter) => void,
@@ -25,7 +26,7 @@ function MainHeader({ addFilter, removeFilter }: MainHeaderProps) {
                 {filters.current.map((filter) => {
                     return (
                         <li key={filter}>
-                            <input type="checkbox" className="checkbox" onChange={(e) => onInputChange(e, filter)} />
+                            <input type="checkbox" className={mainStyle.checkbox} onChange={(e) => onInputChange(e, filter)} />
                             {options.current[filter]}
                         </li>
                     )

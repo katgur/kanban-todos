@@ -5,25 +5,27 @@ import DropArea from "./DropArea";
 import TodoCard from "./TodoCard";
 import { Link } from "react-router-dom";
 import { iconPlus } from "../utils/icons";
+import { useRef } from "react";
+import todoStyle from "../style/todo.module.css";
+import mainStyle from "../style/main.module.css";
 
 interface StatusSectionProps {
     status: Status
 }
 
-const names = ['Todo', 'In Progress', 'Done'];
-
 function StatusSection({ status }: StatusSectionProps) {
     const todos = useSelector(getTodosByStatus(status));
+    const names = useRef(['Todo', 'In Progress', 'Done']);
 
     return (
         <section>
-            <h2>
-                {names[status]}
+            <h2 className={mainStyle.headerText}>
+                {names.current[status]}
             </h2>
             <DropArea status={status}>
                 {
                     (!todos || todos.length === 0) &&
-                    <div className="empty">No todos yet</div>
+                    <div className={todoStyle.empty}>Здесь пока что нет тикетов</div>
                 }
                 {
                     todos.map(todo =>
@@ -32,7 +34,7 @@ function StatusSection({ status }: StatusSectionProps) {
                 }
             </DropArea>
             {
-                status === Status.Created && <Link className="button clearfix" to='/create'>{iconPlus}Добавить тикет</Link>
+                status === Status.Created && <Link className={todoStyle.button} to='/create'>{iconPlus}Добавить тикет</Link>
             }
         </section>
     );

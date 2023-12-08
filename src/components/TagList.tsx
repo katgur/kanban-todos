@@ -1,21 +1,17 @@
-const colors = {
-    'violet': '#EEE1FD', 
-    'green': '#BAF8CF',
-    'red': '#FED6CC',
-    'orange': '#FFDCB6',
-    'light-blue': '#B8E6FF',
-    'lime': '#D8FCB0',
-    'blue': '#C6D9FF',
-    'yellow': '#FFF4C7'
+import todoStyle from '../style/todo.module.css'
+import { Tag } from '../types'
+
+interface TagListProps {
+    tags: Tag[],
 }
 
-function TagList({ className, tags }) {
+function TagList({ tags }: TagListProps) {
     return (
-        <span className={className ? className + " tag-list" : "tag-list"}>
+        <ul className={todoStyle.tagList}>
             {tags.map(tag => {
-                return <div key={tag} style={{backgroundColor: colors[tag], width: 40, height: 18, borderRadius: 2}} />
+                return <li key={tag} className={`${todoStyle.tag} ${todoStyle[tag]}`}></li>
             })}
-        </span>
+        </ul>
     )
 }
 
