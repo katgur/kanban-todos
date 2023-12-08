@@ -11,6 +11,7 @@ import FullHeader from "../components/FullHeader"
 import Modal from "../components/Modal"
 import { Point, Todo } from "../types"
 import Popup from "../components/Popup"
+import fullStyle from "../style/full.module.css"
 
 function FullPage() {
     const [morePoint, setMorePoint] = useState<Point | null>(null);
@@ -54,34 +55,34 @@ function FullPage() {
     return (
         <>
             <FullHeader />
-            <div className="layout full-page">
-                <div className="space-between">
+            <main className={fullStyle.full}>
+                <div className={fullStyle.fullHeader}>
                     {statusMap[todo.status]}
                     <span onClick={(e) => setMorePoint({ x: e.clientX, y: e.clientY })}>{moreIcon}</span>
                 </div>
                 <Popup point={morePoint}>
-                    <div className="card clearfix">
-                        <ul className="left">
-                            <li className="text-button" onClick={() => { setIsDeleteOpen(true); setMorePoint(null); }}>Удалить</li>
-                            <li className="text-button"><Link to={`/edit/${todo.id}`}>Редактировать</Link></li>
+                    <div className={fullStyle.card}>
+                        <span className={fullStyle.fullCancel} onClick={() => setMorePoint(null)}>{closeIcon}</span>
+                        <ul>
+                            <li className={fullStyle.fullOption} onClick={() => { setIsDeleteOpen(true); setMorePoint(null); }}>Удалить</li>
+                            <li className={fullStyle.fullOption}><Link to={`/edit/${todo.id}`}>Редактировать</Link></li>
                         </ul>
-                        <span className="right" onClick={() => setMorePoint(null)}>{closeIcon}</span>
                     </div>
                 </Popup>
-                <div className="task-list">
-                    <div className="card">{todo.name}</div>
-                    <div className={todo?.description ? "card" : "card disabled"}>{todo.description ? todo?.description : "Описание"}</div>
+                <div className={fullStyle.stack}>
+                    <div className={fullStyle.card}>{todo.name}</div>
+                    <textarea placeholder="Описание" className={fullStyle.card} readOnly>{todo.description}</textarea>
                     <TagList tags={todo.tags} />
                     <CommentSection todo={todo} />
                 </div>
-            </div>
+            </main>
             <Modal isVisible={isDeleteOpened}>
-                <div className="modal">
-                    <div className="card">
-                        <div className="bold margin-10">Удалить тикет?</div>
-                        <div className="space-between">
-                            <span className="card text-button" onClick={onTaskRemove}>Да</span>
-                            <span className="card text-button" onClick={() => setIsDeleteOpen(false)}>Нет</span>
+                <div className={fullStyle.modal}>
+                    <div className={fullStyle.modalCard}>
+                        <p className={fullStyle.deleteText}>Удалить тикет?</p>
+                        <div className={fullStyle.options}>
+                            <span onClick={onTaskRemove}>Да</span>
+                            <span onClick={() => setIsDeleteOpen(false)}>Нет</span>
                         </div>
                     </div>
                 </div>
