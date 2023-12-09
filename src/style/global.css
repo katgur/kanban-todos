@@ -58,6 +58,22 @@ ul {
     margin: 0;
 }
 
+.checkbox {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: white;
+    border-radius: 3px;
+    transition: all 150ms;
+    box-shadow: 0px 1px 2px gray;
+    margin: 0px 5px;
+}
+
+input:checked {
+    background: url('../res/checked.svg') white no-repeat center;
+    align-content: center;
+}
+
 #modal {
     position: fixed;
     z-index: 100;

@@ -24,7 +24,6 @@ export async function getTodos(filters: []) {
 }
 
 export async function addTodo(todo: Todo) {
-    console.log(todo);
     const todos = await getTodos([]);
     await setItem(TODOS, JSON.stringify([...todos, todo]));
     return todo;
