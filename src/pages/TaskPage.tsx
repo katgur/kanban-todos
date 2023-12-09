@@ -16,11 +16,11 @@ function TaskPage() {
       <div className={todoStyle.modal}>
         <div className={todoStyle.formCard}>
           {
-            todo === undefined &&
+            params.id && !todo &&
             <>Not Found</>
           }
           {
-            todo !== undefined &&
+            (!params.id || todo) &&
             <>
               <h1 className={todoStyle.headerText}>
                 {todo ? "Редактировать тикет" : "Создать тикет"}

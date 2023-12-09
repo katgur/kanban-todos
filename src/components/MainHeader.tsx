@@ -22,7 +22,6 @@ function MainHeader({ addFilter, removeFilter }: MainHeaderProps) {
         <header>
             <ul className={headerStyle.mainHeader}>
                 {Object.values(Filter).map(filter => {
-                    console.log(filter)
                     return (
                         <li key={filter}>
                             <input type="checkbox" className="checkbox" onChange={(e) => onInputChange(e, filter)} />

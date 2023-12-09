@@ -9,7 +9,7 @@ import { v4 as uuid } from "uuid"
 import todoStyle from '../style/todo.module.css'
 
 interface TodoFormProps {
-    todo: Todo | null,
+    todo: Todo | undefined,
 }
 
 function TodoForm({ todo }: TodoFormProps) {
