@@ -27,14 +27,9 @@ function FullPage() {
             .catch(err => {
                 console.error(err);
             })
-    }, [])
+    }, [dispatch])
 
     const params = useParams();
-
-    if (params.id === undefined) {
-        return <>Not Found</>;
-    }
-
     const todo = useSelector(getTodoById(params.id));
 
     if (!todo) {

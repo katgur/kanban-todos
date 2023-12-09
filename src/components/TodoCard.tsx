@@ -5,17 +5,14 @@ import { useDrag } from 'react-dnd'
 import { Todo } from '../types'
 import todoStyle from "../style/todo.module.css"
 
-export const ItemTypes = {
-	TASK: 'task'
-}
-
 interface TodoCardProps {
 	todo: Todo,
 }
 
 function TodoCard({ todo }: TodoCardProps) {
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [_, drag] = useDrag(() => ({
-		type: ItemTypes.TASK,
+		type: 'todo',
 		item: { todo }
 	}))
 

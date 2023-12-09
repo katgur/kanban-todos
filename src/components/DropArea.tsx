@@ -18,9 +18,10 @@ interface DropAreaItem {
 function DropArea({ children, status }: DropAreaProps) {
     const dispatch = useDispatch();
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, drop] = useDrop(() => {
         return {
-            accept: 'task',
+            accept: 'todo',
             drop: (item: DropAreaItem) => {
                 const newTask = { ...item.todo, status };
                 updateTodo(newTask)

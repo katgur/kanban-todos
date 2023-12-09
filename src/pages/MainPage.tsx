@@ -20,7 +20,7 @@ function MainPage() {
             .catch(err => {
                 console.error(err);
             })
-    }, [filters])
+    }, [filters, dispatch])
 
     return (
         <>

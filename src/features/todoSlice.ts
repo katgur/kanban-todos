@@ -40,7 +40,7 @@ export const getTodosByStatus = (status: Status) => {
   return (state: RootState) => state.todo.items.filter(item => item.status === status);
 }
 
-export const getTodoById = (id: string) => {
+export const getTodoById = (id: string | undefined) => {
   return (state: RootState) => state.todo.items.find(item => item.id === id);
 }
 

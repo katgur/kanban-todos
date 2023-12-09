@@ -1,4 +1,4 @@
-import { Filter, Todo } from '../types';
+import { Todo } from '../types';
 import { getItem, setItem } from './LSRequest';
 
 const TODOS = 'todos';
@@ -40,7 +40,7 @@ export async function updateTodo(todo: Todo) {
 export async function deleteTodo(todo: Todo) {
     const todos = await getTodos([]);
     await setItem(TODOS, JSON.stringify(
-        todos.filter((value, index, array) => {
+        todos.filter(value => {
             return value.id !== todo.id;
         }))
     );

@@ -9,10 +9,9 @@ import todoStyle from "../style/todo.module.css";
 function TaskPage() {
   const params = useParams();
   const navigate = useNavigate();
-
-  const todo = params.id ? useSelector(getTodoById(params.id)) : null;
+  const todo = useSelector(getTodoById(params.id));
   if (todo === undefined) {
-    return;
+    return <>Not Found</>;
   }
 
   return (
