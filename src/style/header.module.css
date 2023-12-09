@@ -1,0 +1,17 @@
+.fullHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    gap: 1rem;
+    cursor: pointer;
+    margin: 32px 5%;
+}
+
+.mainHeader {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+    margin: 32px 5%;
+}

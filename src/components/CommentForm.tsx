@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import { getTodoById } from "../features/todoSlice";
+import fullStyle from "../style/full.module.css";
 
 interface CommentFormData {
     content: string,
@@ -26,8 +27,8 @@ function CommentForm({ onSubmit }: CommentFormProps) {
 
     return (
         <form onSubmit={handleSubmit((data: CommentFormData) => onSubmit({ id: uuid(), date: getDate(), content: data.content }))}>
-            <textarea {...register("content")} />
-            <button className="button" type="submit">
+            <textarea className={fullStyle.textarea} {...register("content")} />
+            <button className={fullStyle.button} type="submit">
                 Сохранить
             </button>
         </form>

@@ -1,9 +1,10 @@
 import { useDrop } from 'react-dnd'
-import { useDispatch, useSelector } from 'react-redux'
-import { getTodoById, update } from '../features/todoSlice'
+import { useDispatch } from 'react-redux'
+import { update } from '../features/todoSlice'
 import { updateTodo } from '../data/todoApi'
 import React from 'react'
 import { Status, Todo } from '../types'
+import todoStyle from '../style/todo.module.css'
 
 interface DropAreaProps {
     children: React.ReactNode,
@@ -34,7 +35,7 @@ function DropArea({ children, status }: DropAreaProps) {
     }, []);
 
     return (
-        <div ref={drop} className="task-list">
+        <div ref={drop} className={todoStyle.taskList}>
             {children}
         </div>
     )

@@ -10,7 +10,7 @@ export enum Status {
     Done,
 }
 
-export type Tag = 'violet' | 'green' | 'red' | 'orange' | 'light-blue' | 'lime' | 'blue' | 'yellow';
+export type Tag = 'violet' | 'green' | 'red' | 'orange' | 'cyan' | 'lime' | 'blue' | 'yellow';
 
 export type Filter = 'tags' | 'description' | 'comments';
 

@@ -6,6 +6,7 @@ import { addTodo, updateTodo } from '../data/todoApi'
 import TagSelect from "./TagSelect"
 import { Status, Todo } from "../types"
 import { v4 as uuid } from "uuid"
+import todoStyle from '../style/todo.module.css'
 
 interface TodoFormProps {
     todo: Todo | null,
@@ -18,7 +19,7 @@ function TodoForm({ todo }: TodoFormProps) {
 
     const onSubmit = (newTodo: Todo) => {
         if (todo) {
-            updateTodo({ ...todo, ...newTodo })
+            updateTodo({ ...todo, ...newTodo, tags: newTodo.tags ? newTodo.tags : [] })
                 .then((data: Todo) => {
                     dispatch(update(data));
                 })
@@ -34,17 +35,16 @@ function TodoForm({ todo }: TodoFormProps) {
                     console.error(err);
                 })
         }
-
         navigate(-1);
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="input-container">
-            <input className="card" defaultValue={todo?.name} {...register("name", { required: true })} />
-            {errors.name && <span>Name is required</span>}
-            <textarea className="card height-100" defaultValue={todo?.description} {...register("description")} />
-            <TagSelect defaultValue={todo?.tags} register={register} />
-            <input className="button" type="submit" />
+        <form onSubmit={handleSubmit(onSubmit)} className={todoStyle.form}>
+            <input className={todoStyle.formInput} defaultValue={todo?.name} {...register("name", { required: true })} />
+            {errors.name && <span className={todoStyle.error}>Name is required</span>}
+            <textarea className={todoStyle.formTextArea} defaultValue={todo?.description} {...register("description")} />
+            <TagSelect defaultValue={todo ? todo.tags : []} register={register} />
+            <button className={todoStyle.button} type="submit">Готово</button>
         </form>
     )
 }

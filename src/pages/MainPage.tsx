@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { getTodos } from '../data/todoApi'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { set } from "../features/todoSlice"
 import MainHeader from '../components/MainHeader'
 import { Filter, Status, Todo } from '../types'
 import StatusSection from '../components/StatusSection'
+import mainStyle from "../style/main.module.css"
 
 function MainPage() {
     const dispatch = useDispatch();
@@ -24,10 +25,10 @@ function MainPage() {
     return (
         <>
             <MainHeader addFilter={(filter) => setFilters([...filters, filter])} removeFilter={(filter) => setFilters(filters.filter(f => f !== filter))} />
-            <div className="board-list">
+            <main className={mainStyle.boardList}>
                 {[Status.Created, Status.Progress, Status.Done].map(status => <StatusSection key={status} status={status} />)}
-            </div>
-            <Outlet />
+                <Outlet />
+            </main>
         </>
 
     );
