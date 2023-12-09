@@ -10,21 +10,25 @@ function TaskPage() {
   const params = useParams();
   const navigate = useNavigate();
   const todo = useSelector(getTodoById(params.id));
-  if (todo === undefined) {
-    return <>Not Found</>;
-  }
 
   return (
     <Modal isVisible={true}>
       <div className={todoStyle.modal}>
         <div className={todoStyle.formCard}>
-          <h1 className={todoStyle.headerText}>
-            {todo ? "Редактировать тикет" : "Создать тикет"}
-            <span className="right" onClick={() => navigate(-1)}>{closeIcon}</span>
-          </h1>
-          <div className="task-list">
-            <TodoForm todo={todo} />
-          </div>
+          {
+            todo === undefined &&
+            <>Not Found</>
+          }
+          {
+            todo !== undefined &&
+            <>
+              <h1 className={todoStyle.headerText}>
+                {todo ? "Редактировать тикет" : "Создать тикет"}
+                <span onClick={() => navigate(-1)}>{closeIcon}</span>
+              </h1>
+              <TodoForm todo={todo} />
+            </>
+          }
         </div>
       </div>
     </Modal>

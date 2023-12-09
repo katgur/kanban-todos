@@ -1,16 +1,16 @@
-import { Todo } from '../types';
+import { Filter, Todo } from '../types';
 import { getItem, setItem } from './LSRequest';
 
 const TODOS = 'todos';
 
-export async function getTodos(filters: []) {
+export async function getTodos(filters: Filter[]) {
     const todos = await getItem(TODOS);
-    if (!todos) {
+    if (!todos || typeof todos !== 'string') {
         setItem(TODOS, JSON.stringify([]));
         return [];
     }
     if (filters.length === 0) {
-        return JSON.parse(todos);
+        return JSON.parse(todos) as Todo[];
     }
     const applyFilters = (todo: Todo) => {
         for (const filter of filters) {
@@ -20,7 +20,7 @@ export async function getTodos(filters: []) {
         }
         return true;
     }
-    return JSON.parse(todos).filter(todo => applyFilters(todo));
+    return (JSON.parse(todos) as Todo[]).filter(todo => applyFilters(todo));
 }
 
 export async function addTodo(todo: Todo) {

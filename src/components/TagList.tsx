@@ -1,8 +1,7 @@
 import todoStyle from '../style/todo.module.css'
-import { Tag } from '../types'
 
 interface TagListProps {
-    tags: Tag[],
+    tags: string[],
 }
 
 function TagList({ tags }: TagListProps) {

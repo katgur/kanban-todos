@@ -1,4 +1,4 @@
-export const getItem = function(key) {
+export const getItem = function(key: string) {
     return new Promise(resolve => {
         setTimeout(() => {
             const response = localStorage.getItem(key);
@@ -7,7 +7,7 @@ export const getItem = function(key) {
     });
 }
 
-export const setItem = function(key, value) {
+export const setItem = function(key: string, value: string) {
     return new Promise(resolve => {
         setTimeout(() => {
             const response = localStorage.setItem(key, value);

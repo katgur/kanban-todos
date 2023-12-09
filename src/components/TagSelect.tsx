@@ -1,16 +1,22 @@
-import { useState } from "react"
+import { ChangeEvent, useRef, useState } from "react"
 import TagList from "./TagList"
 import { arrowDown } from "../utils/icons"
 import tagSelectStyle from "../style/tagSelect.module.css"
 import todoStyle from '../style/todo.module.css'
+import { UseFormRegister } from "react-hook-form"
+import { Todo } from "../types"
 
-const tags = ['violet', 'green', 'red', 'orange', 'cyan', 'lime', 'blue', 'yellow']
+interface TagSelectProps {
+    defaultValue: string[] | undefined,
+    register: UseFormRegister<Todo>,
+}
 
-function TagSelect({ defaultValue, register }) {
+function TagSelect({ defaultValue, register }: TagSelectProps) {
     const [selected, setSelected] = useState(defaultValue ? [...defaultValue] : []);
     const [expanded, setExpanded] = useState<boolean>(false);
+    const tags = useRef(['violet', 'green', 'red', 'orange', 'cyan', 'lime', 'blue', 'yellow']);
 
-    const onSelectChange = (e, tag) => {
+    const onSelectChange = (e: ChangeEvent<HTMLInputElement>, tag: string) => {
         if (e.target.checked) {
             setSelected([...selected, tag]);
         } else {
@@ -29,7 +35,7 @@ function TagSelect({ defaultValue, register }) {
                 {
                     expanded &&
                     <ul className={tagSelectStyle.options}>
-                        {tags.map(tag => {
+                        {tags.current.map(tag => {
                             return (
                                 <li className={tagSelectStyle.option} key={tag}>
                                     <label className={`${todoStyle.tag} ${todoStyle[tag]}`}></label>

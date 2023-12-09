@@ -2,7 +2,7 @@ import { closeIcon, iconPlusGray } from "../utils/icons";
 import { useState } from "react"
 import { Comment, Todo } from "../types";
 import CommentForm from "./CommentForm";
-import { updateTodo } from "../data/todoApi";
+import { updateTodo } from "../data/todoService";
 import { update } from "../features/todoSlice";
 import { useDispatch } from "react-redux";
 import fullStyle from "../style/full.module.css"

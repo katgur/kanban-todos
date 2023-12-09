@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import { add, update } from "../features/todoSlice"
-import { addTodo, updateTodo } from '../data/todoApi'
+import { addTodo, updateTodo } from '../data/todoService'
 import TagSelect from "./TagSelect"
 import { Status, Todo } from "../types"
 import { v4 as uuid } from "uuid"

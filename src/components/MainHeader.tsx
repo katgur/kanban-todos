@@ -8,10 +8,9 @@ interface MainHeaderProps {
 }
 
 function MainHeader({ addFilter, removeFilter }: MainHeaderProps) {
-    const filters = useRef(['comments', 'description', 'tags']);
     const options = useRef({ 'comments': 'Комментарий', 'description': 'Описание', 'tags': 'Тег' });
 
-    const onInputChange = (e, filter: Filter) => {
+    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>, filter: Filter) => {
         if (e.target.checked) {
             addFilter(filter);
         } else {
@@ -22,7 +21,8 @@ function MainHeader({ addFilter, removeFilter }: MainHeaderProps) {
     return (
         <header>
             <ul className={headerStyle.mainHeader}>
-                {filters.current.map((filter) => {
+                {Object.values(Filter).map(filter => {
+                    console.log(filter)
                     return (
                         <li key={filter}>
                             <input type="checkbox" className="checkbox" onChange={(e) => onInputChange(e, filter)} />

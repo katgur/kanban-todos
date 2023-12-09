@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { getTodos } from '../data/todoApi'
+import { getTodos } from '../data/todoService'
 import { useEffect, useState } from 'react'
 import { set } from "../features/todoSlice"
 import MainHeader from '../components/MainHeader'

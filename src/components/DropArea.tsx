@@ -1,7 +1,7 @@
 import { useDrop } from 'react-dnd'
 import { useDispatch } from 'react-redux'
 import { update } from '../features/todoSlice'
-import { updateTodo } from '../data/todoApi'
+import { updateTodo } from '../data/todoService'
 import React from 'react'
 import { Status, Todo } from '../types'
 import todoStyle from '../style/todo.module.css'

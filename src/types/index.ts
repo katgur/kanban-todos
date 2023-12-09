@@ -10,15 +10,17 @@ export enum Status {
     Done,
 }
 
-export type Tag = 'violet' | 'green' | 'red' | 'orange' | 'cyan' | 'lime' | 'blue' | 'yellow';
-
-export type Filter = 'tags' | 'description' | 'comments';
+export enum Filter {
+    Description = 'description',
+    Tags = 'tags',
+    Comments = 'comments',
+}
 
 export interface Todo {
     id: string,
     name: string,
     description: string,
-    tags: Tag[],
+    tags: string[],
     status: Status,
     comments: Comment[],
 }
