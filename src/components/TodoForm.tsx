@@ -18,8 +18,11 @@ function TodoForm({ todo }: TodoFormProps) {
     const dispatch = useDispatch();
 
     const onSubmit = (newTodo: Todo) => {
+        if (!newTodo.tags) {
+            newTodo.tags = todo?.tags ? todo.tags : [];
+        }
         if (todo) {
-            updateTodo({ ...todo, ...newTodo, tags: newTodo.tags ? newTodo.tags : [] })
+            updateTodo({ ...todo, ...newTodo })
                 .then((data: Todo) => {
                     dispatch(update(data));
                 })
@@ -27,7 +30,7 @@ function TodoForm({ todo }: TodoFormProps) {
                     console.error(err);
                 })
         } else {
-            addTodo({ ...newTodo, id: uuid(), status: Status.Created, comments: [], tags: newTodo.tags ? newTodo.tags : [] })
+            addTodo({ ...newTodo, id: uuid(), status: Status.Created, comments: [] })
                 .then((data: Todo) => {
                     dispatch(add(data));
                 })
@@ -43,7 +46,7 @@ function TodoForm({ todo }: TodoFormProps) {
             <input className={todoStyle.formInput} defaultValue={todo?.name} {...register("name", { required: true })} />
             {errors.name && <span className={todoStyle.error}>Name is required</span>}
             <textarea className={todoStyle.formTextArea} defaultValue={todo?.description} {...register("description")} />
-            <TagSelect defaultValue={todo ? todo.tags : []} register={register} />
+            <TagSelect defaultValue={todo?.tags} register={register} />
             <button className={todoStyle.button} type="submit">Готово</button>
         </form>
     )
